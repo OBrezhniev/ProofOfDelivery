@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.8;
 
 contract ProofOfDelivery {
         address owner;
@@ -22,7 +22,7 @@ contract ProofOfDelivery {
         function sendEtherToOwner() returns(uint) {
             if (msg.sender != owner) return;
             var balance = this.balance;
-            owner.send(this.balance);
+            if (!owner.send(this.balance)) throw;
             return balance;
         }
         function getStatus(string trackingCode) constant returns(uint) {
